@@ -1,0 +1,15 @@
+group 'com.com.pencil.mcsearchin'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'groovy'
+
+sourceCompatibility = 1.5
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+    testCompile "org.spockframework:spock-core:1.1-groovy-2.4-rc-3"
+}
