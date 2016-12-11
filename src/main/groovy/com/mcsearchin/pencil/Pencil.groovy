@@ -13,11 +13,24 @@ class Pencil {
     }
 
     def String write(String text) {
-        int pointDegradation = text.replaceAll(/\W/, '').length()
-        String result = remainingPointDurability >= pointDegradation ?
-                text : text.substring(0, remainingPointDurability).padRight(text.length())
-        remainingPointDurability -= Math.min(pointDegradation, remainingPointDurability)
-        result
+        StringBuilder result = new StringBuilder(text.length())
+        text.toCharArray().each {
+            result.append(convertAndDegradePoint(it))
+        }
+
+        result.toString()
+    }
+
+    private char convertAndDegradePoint(char character) {
+        char convertedChar = character
+        if (!character.isWhitespace()) {
+            if (remainingPointDurability > 0) {
+                remainingPointDurability--;
+            } else {
+                convertedChar = ' '
+            }
+        }
+        convertedChar
     }
 
     def sharpen() {

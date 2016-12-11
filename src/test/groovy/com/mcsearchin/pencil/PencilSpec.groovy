@@ -57,7 +57,7 @@ class PencilSpec extends Specification {
         secondResult == '    '
     }
 
-    def "given it has gone dull, when it is sharpened, then the point is restored"() {
+    def "given it has gone dull, when it is sharpened, then it can write again"() {
         given:
         subject = new Pencil(LOWERCASE_WORD.length(), 1)
         subject.write(LOWERCASE_WORD)
@@ -92,11 +92,23 @@ class PencilSpec extends Specification {
         subject.write(LOWERCASE_WORD) == LOWERCASE_WORD
     }
 
-    def "when the text to be written contains whitespace, then the point durability only decreases for non-white space characters"() {
+    def "given the text to be written contains whitespace, then the point durability only decreases for non-white space characters"() {
         given:
+        def text = "\t$LOWERCASE_WORD $LOWERCASE_WORD"
         subject = new Pencil(LOWERCASE_WORD.length() * 2)
 
         expect:
-        subject.write("\t$LOWERCASE_WORD $LOWERCASE_WORD\n") == "\t$LOWERCASE_WORD $LOWERCASE_WORD\n"
+        subject.write(text) == text
+    }
+
+    def "given the text to be written ends with whitespace, then trailing white space characters are preserved"() {
+        given:
+        def pointDurability = LOWERCASE_WORD.length() - 1
+        def text = "$LOWERCASE_WORD\t\n"
+        def expected = "${LOWERCASE_WORD.substring(0, pointDurability)} \t\n"
+        subject = new Pencil(pointDurability)
+
+        expect:
+        subject.write(text) == expected
     }
 }
