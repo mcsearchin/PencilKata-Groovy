@@ -114,10 +114,19 @@ class PencilSpec extends Specification {
 
     def "given the text to be written contains a capital letter, the point will degrade twice as fast for that letter"() {
         given:
-        def wordWithCapitalLetter = 'In'
-        subject = new Pencil(wordWithCapitalLetter.length())
+        def word = 'In'
+        subject = new Pencil(word.length())
 
         expect:
-        subject.write(wordWithCapitalLetter) == 'I '
+        subject.write(word) == 'I '
+    }
+
+    def "given the letter at the end of the text is capital and the point durability can only handle a lowercase letter, the capital letter will not be written"() {
+        given:
+        def word = 't4lly--hooO'
+        subject = new Pencil(word.length())
+
+        expect:
+        subject.write(word) == 't4lly--hoo '
     }
 }
