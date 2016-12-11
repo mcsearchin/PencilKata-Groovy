@@ -81,7 +81,7 @@ class PencilSpec extends Specification {
         subject.write(LOWERCASE_WORD) == '    '
     }
 
-    def "when white space is written, then the point durability does not decrease"() {
+    def "when white space is written, then the point does not degrade"() {
         given:
         subject = new Pencil(LOWERCASE_WORD.length())
 
@@ -92,7 +92,7 @@ class PencilSpec extends Specification {
         subject.write(LOWERCASE_WORD) == LOWERCASE_WORD
     }
 
-    def "given the text to be written contains whitespace, then the point durability only decreases for non-white space characters"() {
+    def "given the text to be written contains whitespace, then the point only degrades for non-white space characters"() {
         given:
         def text = "\t$LOWERCASE_WORD $LOWERCASE_WORD"
         subject = new Pencil(LOWERCASE_WORD.length() * 2)
@@ -110,5 +110,14 @@ class PencilSpec extends Specification {
 
         expect:
         subject.write(text) == expected
+    }
+
+    def "given the text to be written contains a capital letter, the point will degrade twice as fast for that letter"() {
+        given:
+        def wordWithCapitalLetter = 'In'
+        subject = new Pencil(wordWithCapitalLetter.length())
+
+        expect:
+        subject.write(wordWithCapitalLetter) == 'I '
     }
 }

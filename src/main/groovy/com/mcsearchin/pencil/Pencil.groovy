@@ -24,8 +24,9 @@ class Pencil {
     private char convertAndDegradePoint(char character) {
         char convertedChar = character
         if (!character.isWhitespace()) {
+            def pointDegradation = character.isUpperCase() ? 2 : 1
             if (remainingPointDurability > 0) {
-                remainingPointDurability--;
+                remainingPointDurability -= pointDegradation;
             } else {
                 convertedChar = ' '
             }
