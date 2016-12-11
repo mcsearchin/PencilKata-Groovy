@@ -9,6 +9,6 @@ class Pencil {
     }
 
     def String write(String text) {
-        text.substring(0, pointDurability).padRight(text.length())
+        pointDurability >= text.length() ? text : text.substring(0, pointDurability).padRight(text.length())
     }
 }

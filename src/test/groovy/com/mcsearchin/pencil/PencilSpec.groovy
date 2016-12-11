@@ -4,24 +4,30 @@ import spock.lang.Specification
 
 class PencilSpec extends Specification {
 
-    def subject
-    final static LOWERCASE_TEXT = 'text'
+    Pencil subject
+    final static LOWERCASE_WORD = 'word'
 
-    def "given the point durability is sufficient, it can write a the supplied text"() {
+    def "given the point durability is exactly sufficient, it can write a supplied word"() {
         given:
-        subject = new Pencil(LOWERCASE_TEXT.length())
+        subject = new Pencil(LOWERCASE_WORD.length())
 
         expect:
-        subject.write(LOWERCASE_TEXT) == LOWERCASE_TEXT
+        subject.write(LOWERCASE_WORD) == LOWERCASE_WORD
     }
 
-    def "given the point durability is less than needed for the text, it cannot write the entire supplied text string"() {
+    def "given the point durability is less than needed for a word, it cannot write the entire supplied word"() {
         given:
-        subject = new Pencil(LOWERCASE_TEXT.length() - 1)
+        subject = new Pencil(LOWERCASE_WORD.length() - 1)
 
-        def result = subject.write(LOWERCASE_TEXT)
         expect:
-        result.length() == LOWERCASE_TEXT.length()
-        result == 'tex '
+        subject.write(LOWERCASE_WORD) == 'wor '
+    }
+
+    def "given the point durability is more than sufficient, it can write a supplied word"() {
+        given:
+        subject = new Pencil(LOWERCASE_WORD.length() + 1)
+
+        expect:
+        subject.write(LOWERCASE_WORD) == LOWERCASE_WORD
     }
 }
