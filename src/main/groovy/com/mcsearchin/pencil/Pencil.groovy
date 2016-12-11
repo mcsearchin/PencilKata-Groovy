@@ -13,9 +13,10 @@ class Pencil {
     }
 
     def String write(String text) {
-        String result = remainingPointDurability >= text.length() ?
+        int pointDegradation = text.replaceAll(/\W/, '').length()
+        String result = remainingPointDurability >= pointDegradation ?
                 text : text.substring(0, remainingPointDurability).padRight(text.length())
-        remainingPointDurability -= Math.min(text.length(), remainingPointDurability)
+        remainingPointDurability -= Math.min(pointDegradation, remainingPointDurability)
         result
     }
 

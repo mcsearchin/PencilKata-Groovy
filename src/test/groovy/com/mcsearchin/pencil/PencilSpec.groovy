@@ -80,4 +80,23 @@ class PencilSpec extends Specification {
         then:
         subject.write(LOWERCASE_WORD) == '    '
     }
+
+    def "when white space is written, then the point durability does not decrease"() {
+        given:
+        subject = new Pencil(LOWERCASE_WORD.length())
+
+        when:
+        subject.write(' \t\n')
+
+        then:
+        subject.write(LOWERCASE_WORD) == LOWERCASE_WORD
+    }
+
+    def "when the text to be written contains whitespace, then the point durability only decreases for non-white space characters"() {
+        given:
+        subject = new Pencil(LOWERCASE_WORD.length() * 2)
+
+        expect:
+        subject.write("\t$LOWERCASE_WORD $LOWERCASE_WORD\n") == "\t$LOWERCASE_WORD $LOWERCASE_WORD\n"
+    }
 }
