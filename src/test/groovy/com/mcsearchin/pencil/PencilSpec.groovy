@@ -57,9 +57,9 @@ class PencilSpec extends Specification {
         secondResult == '    '
     }
 
-    def "given the pencil has gone dull, when it is sharpened, then it can write again"() {
+    def "given it has gone dull, when it is sharpened, then the point is restored"() {
         given:
-        subject = new Pencil(LOWERCASE_WORD.length())
+        subject = new Pencil(LOWERCASE_WORD.length(), 1)
         subject.write(LOWERCASE_WORD)
 
         when:
@@ -67,5 +67,17 @@ class PencilSpec extends Specification {
 
         then:
         subject.write(LOWERCASE_WORD) == LOWERCASE_WORD
+    }
+
+    def "given it has gone dull and is too short to be sharpened, when it is sharpened, then the point is not restored"() {
+        given:
+        subject = new Pencil(LOWERCASE_WORD.length(), 0)
+        subject.write(LOWERCASE_WORD)
+
+        when:
+        subject.sharpen()
+
+        then:
+        subject.write(LOWERCASE_WORD) == '    '
     }
 }

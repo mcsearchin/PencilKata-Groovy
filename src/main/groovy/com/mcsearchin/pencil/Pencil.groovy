@@ -4,10 +4,12 @@ class Pencil {
 
     private final int initialPointDurability
     private int remainingPointDurability
+    private int length
 
-    Pencil(int pointDurability) {
+    Pencil(int pointDurability, int length = 0) {
         this.initialPointDurability = pointDurability
         this.remainingPointDurability = pointDurability
+        this.length = length
     }
 
     def String write(String text) {
@@ -18,6 +20,9 @@ class Pencil {
     }
 
     def sharpen() {
-        remainingPointDurability = initialPointDurability
+        if (length > 0) {
+            remainingPointDurability = initialPointDurability
+            length--
+        }
     }
 }
