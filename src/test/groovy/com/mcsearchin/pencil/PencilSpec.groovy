@@ -43,4 +43,17 @@ class PencilSpec extends Specification {
         firstResult == LOWERCASE_WORD
         secondResult == 'wo  '
     }
+
+    def "when it goes dull while writing the supplied text, then it will write all spaces on subsequent writings"() {
+        given:
+        subject = new Pencil(LOWERCASE_WORD.length() - 1)
+
+        when:
+        def firstResult = subject.write(LOWERCASE_WORD)
+        def secondResult = subject.write(LOWERCASE_WORD)
+
+        then:
+        firstResult == 'wor '
+        secondResult == '    '
+    }
 }
