@@ -30,4 +30,17 @@ class PencilSpec extends Specification {
         expect:
         subject.write(LOWERCASE_WORD) == LOWERCASE_WORD
     }
+
+    def "given the point durability is less than needed for writing a word twice, it will go dull during the second writing"() {
+        given:
+        subject = new Pencil(LOWERCASE_WORD.length() * 2 - 2)
+
+        when:
+        def firstResult = subject.write(LOWERCASE_WORD)
+        def secondResult = subject.write(LOWERCASE_WORD)
+
+        then:
+        firstResult == LOWERCASE_WORD
+        secondResult == 'wo  '
+    }
 }
