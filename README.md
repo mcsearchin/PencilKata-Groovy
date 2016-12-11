@@ -11,6 +11,6 @@ The purpose of the Pencil Kata is to write code to simulate, first coarsely and 
 5. Writing spaces, tabs, and newlines expends no graphite; therefore these characters should not be considered in pointDurability.
 6. In general, writing capital letters expends more graphite than writing lowercase letters. Adjust the Pencil to take this into account.
 7. At least for the letters of the alphabet, make a reasonable estimation of the proportionate amount of graphite that is expended to write upper- and lowercase versions of each one, and figure that into the simulation.
-8-?. Come up with your own ideas to make the simulation even more faithful to reality.
+8. Come up with your own ideas to make the simulation even more faithful to reality.
 
 Bonus: Using inheritance, composition or some other OO pattern, implement an ink pen.
