@@ -56,4 +56,16 @@ class PencilSpec extends Specification {
         firstResult == 'wor '
         secondResult == '    '
     }
+
+    def "given the pencil has gone dull, when it is sharpened, then it can write again"() {
+        given:
+        subject = new Pencil(LOWERCASE_WORD.length())
+        subject.write(LOWERCASE_WORD)
+
+        when:
+        subject.sharpen()
+
+        then:
+        subject.write(LOWERCASE_WORD) == LOWERCASE_WORD
+    }
 }

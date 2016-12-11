@@ -2,15 +2,22 @@ package com.mcsearchin.pencil
 
 class Pencil {
 
-    private int pointDurability
+    private final int initialPointDurability
+    private int remainingPointDurability
 
     Pencil(int pointDurability) {
-        this.pointDurability = pointDurability
+        this.initialPointDurability = pointDurability
+        this.remainingPointDurability = pointDurability
     }
 
     def String write(String text) {
-        String result = pointDurability >= text.length() ? text : text.substring(0, pointDurability).padRight(text.length())
-        pointDurability -= Math.min(text.length(), pointDurability)
+        String result = remainingPointDurability >= text.length() ?
+                text : text.substring(0, remainingPointDurability).padRight(text.length())
+        remainingPointDurability -= Math.min(text.length(), remainingPointDurability)
         result
+    }
+
+    def sharpen() {
+        remainingPointDurability = initialPointDurability
     }
 }
