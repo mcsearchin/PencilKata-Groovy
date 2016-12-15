@@ -2,8 +2,8 @@ package com.mcsearchin.pencil
 
 class Pencil {
 
-    private static final int STANDARD_LETTER_DEGRADATION = 1;
-    private static final int CAPITAL_LETTER_DEGRADATION = 2;
+    private static final int STANDARD_LETTER_DEGRADATION = 1
+    private static final int CAPITAL_LETTER_DEGRADATION = 2
 
     private final int initialPointDurability
     private int remainingPointDurability
