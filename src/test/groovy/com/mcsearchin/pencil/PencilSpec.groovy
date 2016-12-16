@@ -1,6 +1,7 @@
 package com.mcsearchin.pencil
 
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class PencilSpec extends Specification {
 
@@ -128,5 +129,27 @@ class PencilSpec extends Specification {
 
         expect:
         subject.write(word) == 't4lly--hoo '
+    }
+
+    @Unroll
+    def "when an '#character' is written it degrades the point by #pointDegradation"() {
+        given:
+        subject = new Pencil(pointDegradation)
+
+        when:
+        def result = subject.write(character)
+
+        then:
+        result == character
+
+        and:
+        subject.write('i') == ' '
+
+        where:
+        character   || pointDegradation
+        'm'         || 2
+        'w'         || 2
+        'M'         || 3
+        'W'         || 3
     }
 }
