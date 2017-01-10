@@ -59,10 +59,10 @@ When the pencil is instructed to erase text from the paper, the last occurrence 
 
 Given a piece of the paper containing the string:  
 	"How much wood would a woodchuck chuck if a woodchuck could chuck wood?"  
-when the string "chuck" is erased, the paper should read  
+when the string "chuck" is erased, the paper should read:  
 	"How much wood would a woodchuck chuck if a woodchuck could&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wood?"    
-and if the string "chuck" is erased again, the paper should read  
-"How much wood would a wood chuck chuck if a wood&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;could&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wood?"  
+and if the string "chuck" is erased again, the paper should read:  
+"How much wood would a woodchuck chuck if a wood&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;could&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wood?"  
 
 
 ## Eraser Degradation
@@ -82,4 +82,4 @@ so that I can change my writing without starting over*
 
 Once text has been erased from the paper, a pencil may be instructed to write new text over the resulting white space.  For instance, if the paper contains the text "An&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a day keeps the doctor away", a pencil can can be instructed to write the word "onion" in the white space gap, so the text reads "An onion a day keeps the doctor away".  
 
-Existing text on the page cannot 'shift' to make room for new text, and thus the pencil should not be allowed to write text that takes up more than the designated white space.  For instance, the word "eggplant" could not be written in the middle of the previously mentioned text as it would collide with other letters.
+Existing text on the page cannot 'shift' to make room for new text, and thus the pencil should not be allowed to write text that takes up more than the designated white space.  For instance, the word "eggplant" could not be written in the middle of "An&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a day keeps the doctor away" as it would collide with other letters.
