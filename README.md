@@ -59,10 +59,10 @@ When the pencil is instructed to erase text from the paper, the last occurrence 
 
 Given a piece of the paper containing the string:  
 	"How much wood would a woodchuck chuck if a woodchuck could chuck wood?"  
-when the string "chuck" is erased, the paper should read  
+when the string "chuck" is erased, the paper should read:  
 	"How much wood would a woodchuck chuck if a woodchuck could&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wood?"    
-and if the string "chuck" is erased again, the paper should read  
-"How much wood would a wood chuck chuck if a wood&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;could&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wood?"  
+and if the string "chuck" is erased again, the paper should read:  
+"How much wood would a woodchuck chuck if a wood&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;could&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wood?"  
 
 
 ## Eraser Degradation
@@ -70,7 +70,7 @@ and if the string "chuck" is erased again, the paper should read
 I want a pencil eraser to eventually wear out  
 so that I can sell more pencils*  
 
-When a pencil is created, it can be provided with a value for eraser durability.  For simplicity, all characters except for white space should degrade the eraser by a value of one.  Text should be erased in the opposite order it was written.  Once the eraser durability is zero, the eraser is worn out and can no longer erase.
+When a pencil is created, it can be provided with a value for eraser durability.  For simplicity, all characters except for white space should degrade the eraser by a value of one.  Text should be erased in the opposite order it was written.  Once the eraser durability is zero, the eraser is worn out and can no longer erased.
 
 Thus if a pencil's eraser has remaining durability of three, and it is instructed to erase the word "Bill" from "Buffalo Bill", then the text remaining on the paper is "Buffalo B&nbsp;&nbsp;&nbsp;".
 
