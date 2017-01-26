@@ -70,7 +70,7 @@ and if the string "chuck" is erased again, the paper should read
 I want a pencil eraser to eventually wear out  
 so that I can sell more pencils*  
 
-When a pencil is created, it can be provided with a value for eraser durability.  For simplicity, all characters except for white space should degrade the eraser by a value of one.  Text should be erased in the opposite of order it was written.  Once the eraser durability is zero, the eraser is worn out and can no longer erase.  
+When a pencil is created, it can be provided with a value for eraser durability.  For simplicity, all characters except for white space should degrade the eraser by a value of one.  Text should be erased in the opposite order it was written.  Once the eraser durability is zero, the eraser is worn out and can no longer erase.
 
 Thus if a pencil's eraser has remaining durability of three, and it is instructed to erase the word "Bill" from "Buffalo Bill", then the text remaining on the paper is "Buffalo B&nbsp;&nbsp;&nbsp;".
 
@@ -82,4 +82,4 @@ so that I can change my writing without starting over*
 
 Once text has been erased from the paper, a pencil may be instructed to write new text over the resulting white space.  For instance, if the paper contains the text "An&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a day keeps the doctor away", a pencil can can be instructed to write the word "onion" in the white space gap, so the text reads "An onion a day keeps the doctor away".  
 
-Existing text on the page cannot 'shift' to make room for new text, and thus the pencil should not be allowed to write text that takes up more than the designated white space.  For instance, the word "eggplant" could not be written in the middle of the previously mentioned text as it would collide with other letters.
+Existing text on the page cannot 'shift' to make room for new text.  If the new text is longer than the allocated whitespace and thus would collide with other existing non-whitespace characters on the page, these character collisions should be represented by the "@" character.  For example, writing "artichoke" in the middle of "An&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a day keeps the doctor away" would result in "An artich@k@ay keeps the doctor away".
