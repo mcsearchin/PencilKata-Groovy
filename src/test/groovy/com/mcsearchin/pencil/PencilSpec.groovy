@@ -6,30 +6,44 @@ import spock.lang.Unroll
 class PencilSpec extends Specification {
 
     Pencil subject
-    final static LOWERCASE_WORD = 'word'
+    Paper paper
+    final static LOWERCASE_WORD = 'blah'
+
+    def setup() {
+        paper = new Paper()
+    }
 
     def "given the point durability is exactly sufficient, it can write a supplied word"() {
         given:
         subject = new Pencil(LOWERCASE_WORD.length())
 
-        expect:
-        subject.write(LOWERCASE_WORD) == LOWERCASE_WORD
+        when:
+        subject.write(LOWERCASE_WORD, paper)
+
+        then:
+        LOWERCASE_WORD == paper.text
     }
 
     def "given the point durability is less than needed for a word, it cannot write the entire supplied word"() {
         given:
         subject = new Pencil(LOWERCASE_WORD.length() - 1)
 
-        expect:
-        subject.write(LOWERCASE_WORD) == 'wor '
+        when:
+        subject.write(LOWERCASE_WORD, paper)
+
+        then:
+        'bla ' == paper.text
     }
 
     def "given the point durability is more than sufficient, it can write a supplied word"() {
         given:
         subject = new Pencil(LOWERCASE_WORD.length() + 1)
 
-        expect:
-        subject.write(LOWERCASE_WORD) == LOWERCASE_WORD
+        when:
+        subject.write(LOWERCASE_WORD, paper)
+
+        then:
+        LOWERCASE_WORD == paper.text
     }
 
     def "given the point durability is less than needed for writing a word twice, it will go dull during the second writing"() {
@@ -37,12 +51,11 @@ class PencilSpec extends Specification {
         subject = new Pencil(LOWERCASE_WORD.length() * 2 - 2)
 
         when:
-        def firstResult = subject.write(LOWERCASE_WORD)
-        def secondResult = subject.write(LOWERCASE_WORD)
+        subject.write(LOWERCASE_WORD, paper)
+        subject.write(LOWERCASE_WORD, paper)
 
         then:
-        firstResult == LOWERCASE_WORD
-        secondResult == 'wo  '
+        LOWERCASE_WORD + 'bl  ' == paper.text
     }
 
     def "when it goes dull while writing the supplied text, then it will write all spaces on subsequent writings"() {
@@ -50,36 +63,36 @@ class PencilSpec extends Specification {
         subject = new Pencil(LOWERCASE_WORD.length() - 1)
 
         when:
-        def firstResult = subject.write(LOWERCASE_WORD)
-        def secondResult = subject.write(LOWERCASE_WORD)
+        subject.write(LOWERCASE_WORD, paper)
+        subject.write(LOWERCASE_WORD, paper)
 
         then:
-        firstResult == 'wor '
-        secondResult == '    '
+        'bla     ' == paper.text
     }
 
     def "given it has gone dull, when it is sharpened, then it can write again"() {
         given:
         subject = new Pencil(LOWERCASE_WORD.length(), 1)
-        subject.write(LOWERCASE_WORD)
+        subject.write(LOWERCASE_WORD, paper)
 
         when:
         subject.sharpen()
 
         then:
-        subject.write(LOWERCASE_WORD) == LOWERCASE_WORD
+        LOWERCASE_WORD == paper.text
     }
 
     def "given it has gone dull and is too short to be sharpened, when it is sharpened, then the point is not restored"() {
         given:
         subject = new Pencil(LOWERCASE_WORD.length(), 0)
-        subject.write(LOWERCASE_WORD)
+        subject.write(LOWERCASE_WORD, paper)
 
         when:
         subject.sharpen()
+        subject.write(LOWERCASE_WORD, paper)
 
         then:
-        subject.write(LOWERCASE_WORD) == '    '
+        LOWERCASE_WORD + '    ' == paper.text
     }
 
     def "when white space is written, then the point does not degrade"() {
@@ -87,10 +100,11 @@ class PencilSpec extends Specification {
         subject = new Pencil(LOWERCASE_WORD.length())
 
         when:
-        subject.write(' \t\n')
+        subject.write(' \t\n', paper)
+        subject.write(LOWERCASE_WORD, paper)
 
         then:
-        subject.write(LOWERCASE_WORD) == LOWERCASE_WORD
+        ' \t\n' + LOWERCASE_WORD == paper.text
     }
 
     def "given the text to be written contains whitespace, then the point only degrades for non-white space characters"() {
@@ -98,8 +112,11 @@ class PencilSpec extends Specification {
         def text = "\t$LOWERCASE_WORD $LOWERCASE_WORD"
         subject = new Pencil(LOWERCASE_WORD.length() * 2)
 
-        expect:
-        subject.write(text) == text
+        when:
+        subject.write(text, paper)
+
+        then:
+        text == paper.text
     }
 
     def "given the text to be written ends with whitespace, then trailing white space characters are preserved"() {
@@ -109,8 +126,11 @@ class PencilSpec extends Specification {
         def expected = "${LOWERCASE_WORD.substring(0, pointDurability)} \t\n"
         subject = new Pencil(pointDurability)
 
-        expect:
-        subject.write(text) == expected
+        when:
+        subject.write(text, paper)
+
+        then:
+        expected == paper.text
     }
 
     def "given the text to be written contains a capital letter, the point will degrade twice as fast for that letter"() {
@@ -118,8 +138,11 @@ class PencilSpec extends Specification {
         def word = 'In'
         subject = new Pencil(word.length())
 
-        expect:
-        subject.write(word) == 'I '
+        when:
+        subject.write(word, paper)
+
+        then:
+         'I ' == paper.text
     }
 
     def "given the letter at the end of the text is capital and the point durability can only handle a lowercase letter, the capital letter will not be written"() {
@@ -127,8 +150,11 @@ class PencilSpec extends Specification {
         def word = 't4lly--hooO'
         subject = new Pencil(word.length())
 
-        expect:
-        subject.write(word) == 't4lly--hoo '
+        when:
+        subject.write(word, paper)
+
+        then:
+        't4lly--hoo ' == paper.text
     }
 
     @Unroll
@@ -137,13 +163,11 @@ class PencilSpec extends Specification {
         subject = new Pencil(pointDegradation)
 
         when:
-        def result = subject.write(character)
+        subject.write(character, paper)
+        subject.write('i', paper)
 
         then:
-        result == character
-
-        and:
-        subject.write('i') == ' '
+        character + ' ' == paper.text
 
         where:
         character   || pointDegradation

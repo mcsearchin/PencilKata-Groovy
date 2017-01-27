@@ -16,13 +16,13 @@ class Pencil {
         this.length = length
     }
 
-    def String write(String text) {
+    def String write(String text, Paper paper) {
         StringBuilder result = new StringBuilder(text.length())
         text.toCharArray().each {
             result.append(convertAndDegradePoint(it))
         }
 
-        result.toString()
+        paper.write(result.toString())
     }
 
     private char convertAndDegradePoint(char character) {
