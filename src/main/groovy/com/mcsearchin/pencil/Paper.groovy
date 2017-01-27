@@ -10,7 +10,7 @@ class Paper {
 
     def String setText(String text) {}
 
-    def write(String text) {
+    def write(char text) {
         this.text += text
     }
 }

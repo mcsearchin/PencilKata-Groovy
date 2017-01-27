@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class PaperSpec extends Specification {
 
-    static final TEXT = "text"
+    static final char CHARACTER = 'x'
 
     Paper subject
 
@@ -12,23 +12,23 @@ class PaperSpec extends Specification {
         subject = new Paper()
     }
 
-    def "when text is written it contains the text"() {
+    def "when a character is written it contains the text"() {
         when:
-        subject.write(TEXT)
+        subject.write(CHARACTER)
 
         then:
-        subject.text == TEXT
+        subject.text == CHARACTER
     }
 
     def "given text has already been written, when more text is written then it is appended to the existing text"() {
         given:
-        subject.write(TEXT)
+        subject.write(CHARACTER)
 
         when:
-        subject.write(TEXT)
+        subject.write(CHARACTER)
 
         then:
-        subject.text == TEXT + TEXT
+        subject.text == "$CHARACTER$CHARACTER"
     }
 
     def "when no text has been written, it contains an empty string"() {
@@ -38,7 +38,7 @@ class PaperSpec extends Specification {
 
     def "text cannot be altered directly"() {
         given:
-        subject.text = TEXT
+        subject.text = 'text'
 
         expect:
         subject.text == ""

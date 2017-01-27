@@ -17,12 +17,9 @@ class Pencil {
     }
 
     def String write(String text, Paper paper) {
-        StringBuilder result = new StringBuilder(text.length())
         text.toCharArray().each {
-            result.append(convertAndDegradePoint(it))
+            paper.write(convertAndDegradePoint(it))
         }
-
-        paper.write(result.toString())
     }
 
     private char convertAndDegradePoint(char character) {
