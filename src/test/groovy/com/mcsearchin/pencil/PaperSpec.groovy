@@ -30,4 +30,17 @@ class PaperSpec extends Specification {
         then:
         subject.text == TEXT + TEXT
     }
+
+    def "when no text has been written, it contains an empty string"() {
+        expect:
+        subject.text == ""
+    }
+
+    def "text cannot be altered directly"() {
+        given:
+        subject.text = TEXT
+
+        expect:
+        subject.text == ""
+    }
 }
