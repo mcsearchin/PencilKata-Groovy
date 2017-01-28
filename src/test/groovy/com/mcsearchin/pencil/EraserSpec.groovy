@@ -4,6 +4,8 @@ import spock.lang.Specification
 
 class EraserSpec extends Specification {
 
+    def static final WORD = 'yo'
+
     Eraser subject
     Paper paper
 
@@ -13,12 +15,11 @@ class EraserSpec extends Specification {
 
     public "when it is instructed to erase all of text, the text is replaced with whitespace"() {
         given:
-        subject = new Eraser()
-        def text = 'yo'
-        write(text, paper)
+        subject = new Eraser(WORD.length())
+        write(WORD, paper)
 
         when:
-        subject.erase(text, paper)
+        subject.erase(WORD, paper)
 
         then:
         paper.text == '  '
@@ -26,11 +27,11 @@ class EraserSpec extends Specification {
 
     public "when it is instructed to erase only some of text, the specified text is replaced with whitespace"() {
         given:
-        subject = new Eraser()
+        subject = new Eraser(WORD.length())
         write('you', paper)
 
         when:
-        subject.erase('yo', paper)
+        subject.erase(WORD, paper)
 
         then:
         paper.text == '  u'
@@ -38,27 +39,38 @@ class EraserSpec extends Specification {
 
     public "when it is instructed to erase text not on the paper, the text on the paper is unaltered"() {
         given:
-        subject = new Eraser()
-        def text = 'yo'
-        write(text, paper)
+        subject = new Eraser(WORD.length())
+        write(WORD, paper)
 
         when:
         subject.erase('ho', paper)
 
         then:
-        paper.text == text
+        paper.text == WORD
     }
 
     public "when the text to be erased occurs more than once, only the last occurrence is erased"() {
         given:
-        subject = new Eraser()
-        write('yo yo yo', paper)
+        subject = new Eraser(WORD.length())
+        write("$WORD $WORD $WORD", paper)
 
         when:
-        subject.erase('yo', paper)
+        subject.erase(WORD, paper)
 
         then:
-        paper.text == 'yo yo   '
+        paper.text == "$WORD $WORD   "
+    }
+
+    public "given the eraser is worn out, when it is instructed to erase text, the text is unaltered"() {
+        given:
+        subject = new Eraser(0)
+        write(WORD, paper)
+
+        when:
+        subject.erase(WORD, paper)
+
+        then:
+        paper.text == WORD
     }
 
     private write(String text, Paper paper) {
