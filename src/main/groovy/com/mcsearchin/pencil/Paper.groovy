@@ -3,14 +3,13 @@ package com.mcsearchin.pencil;
 class Paper {
 
     static final char SPACE = ' '
+    static final char COLLISION = '@'
 
     private StringBuilder text = new StringBuilder()
 
     def String getText() {
         text.toString()
     }
-
-    def String setText(String text) {}
 
     def write(char character) {
         text.append(character)
@@ -26,7 +25,12 @@ class Paper {
 
     private setCharacterAt(int index, char character) {
         if (index >= 0 && index < text.length()) {
-            text.setCharAt(index, character)
+            char newCharacter = isEitherWhitespace(character, text.charAt(index)) ? character : COLLISION
+            text.setCharAt(index, newCharacter)
         }
+    }
+
+    private isEitherWhitespace(char newChar, char oldChar) {
+        newChar.isWhitespace() || oldChar.isWhitespace()
     }
 }

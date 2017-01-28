@@ -36,14 +36,6 @@ class PaperSpec extends Specification {
         subject.text == ""
     }
 
-    def "text cannot be altered directly"() {
-        given:
-        subject.text = 'text'
-
-        expect:
-        subject.text == ""
-    }
-
     def "given text has been written, when a given index is erased, it is replaced with whitespace"() {
         given:
         subject.write(CHARACTER)
@@ -97,5 +89,18 @@ class PaperSpec extends Specification {
 
         then:
         subject.text == "$CHARACTER"
+    }
+
+    def "when instructed to write at an index, that is already occupied by a non-white space character, the resulting character is '@'"() {
+        given:
+        subject.write(CHARACTER)
+        subject.write(CHARACTER)
+        subject.write(CHARACTER)
+
+        when:
+        subject.write(CHARACTER, 1)
+
+        then:
+        subject.text == "$CHARACTER@$CHARACTER"
     }
 }
