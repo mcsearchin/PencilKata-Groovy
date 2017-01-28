@@ -200,4 +200,28 @@ class PencilSpec extends Specification {
         then:
         paper.text == LOWERCASE_WORD
     }
+
+    def "given text has been written, when instructed to write text in the middle of the existing text, the paper reflects the change"() {
+        given:
+        subject = new Pencil(1000)
+        subject.write('An       a day keeps the doctor away', paper)
+
+        when:
+        subject.write('artichoke', 3, paper)
+
+        then:
+        paper.text == 'An artich@k@ay keeps the doctor away'
+    }
+
+    def "given text has been written, when instructed to write text that starts in the middle but extends past the end of the existing text, the paper reflects tha change"() {
+        given:
+        subject = new Pencil(1000)
+        subject.write('Finish this sent    ', paper)
+
+        when:
+        subject.write('iment.', 16, paper)
+
+        then:
+        paper.text == 'Finish this sentiment.'
+    }
 }

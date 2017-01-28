@@ -24,6 +24,14 @@ class Pencil {
         }
     }
 
+    def write(String text, int index, Paper paper) {
+        int characterIndex = index
+        text.toCharArray().each {
+            paper.write(convertAndDegradePoint(it), characterIndex)
+            characterIndex++
+        }
+    }
+
     private char convertAndDegradePoint(char character) {
         char convertedChar = character
         if (!character.isWhitespace()) {

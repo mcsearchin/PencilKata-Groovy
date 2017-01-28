@@ -80,12 +80,23 @@ class PaperSpec extends Specification {
         subject.text == "$CHARACTER$CHARACTER$CHARACTER"
     }
 
-    def "when instructed to write at an out of range index, the string is not altered"() {
+    def "when instructed to write at an index that is exactly one more than the size of existing text, it is appended to the existing text"() {
         given:
         subject.write(CHARACTER)
 
         when:
         subject.write(CHARACTER, 1)
+
+        then:
+        subject.text == "$CHARACTER$CHARACTER"
+    }
+
+    def "when instructed to write at an index that is two or more than the size of the existing text, the text is not altered"() {
+        given:
+        subject.write(CHARACTER)
+
+        when:
+        subject.write(CHARACTER, 2)
 
         then:
         subject.text == "$CHARACTER"

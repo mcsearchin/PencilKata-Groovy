@@ -16,7 +16,11 @@ class Paper {
     }
 
     def write(char character, int index) {
-        setCharacterAt(index, character)
+        if (index == text.length()) {
+            write(character)
+        } else {
+            setCharacterAt(index, character)
+        }
     }
 
     def erase(int index) {
