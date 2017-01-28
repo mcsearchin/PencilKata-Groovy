@@ -74,4 +74,28 @@ class PaperSpec extends Specification {
         then:
         subject.text == ""
     }
+
+    def "when there is whitespace in the text, text can be written over it"() {
+        given:
+        subject.write(CHARACTER)
+        subject.write(Paper.SPACE)
+        subject.write(CHARACTER)
+
+        when:
+        subject.write(CHARACTER, 1)
+
+        then:
+        subject.text == "$CHARACTER$CHARACTER$CHARACTER"
+    }
+
+    def "when instructed to write at an out of range index, the string is not altered"() {
+        given:
+        subject.write(CHARACTER)
+
+        when:
+        subject.write(CHARACTER, 1)
+
+        then:
+        subject.text == "$CHARACTER"
+    }
 }

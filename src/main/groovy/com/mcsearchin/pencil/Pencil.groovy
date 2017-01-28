@@ -1,7 +1,5 @@
 package com.mcsearchin.pencil
 
-import java.time.chrono.Era
-
 class Pencil {
 
     private static final int STANDARD_LETTER_DEGRADATION = 1
@@ -26,12 +24,6 @@ class Pencil {
         }
     }
 
-    def erase(String text, Paper paper) {
-        if (eraser != null) {
-            eraser.erase(text, paper)
-        }
-    }
-
     private char convertAndDegradePoint(char character) {
         char convertedChar = character
         if (!character.isWhitespace()) {
@@ -39,7 +31,7 @@ class Pencil {
             if (remainingPointDurability >= pointDegradation) {
                 remainingPointDurability -= pointDegradation;
             } else {
-                convertedChar = ' '
+                convertedChar = Paper.SPACE
             }
         }
         convertedChar
@@ -57,6 +49,12 @@ class Pencil {
         if (length > 0) {
             remainingPointDurability = initialPointDurability
             length--
+        }
+    }
+
+    def erase(String text, Paper paper) {
+        if (eraser != null) {
+            eraser.erase(text, paper)
         }
     }
 }

@@ -177,7 +177,7 @@ class PencilSpec extends Specification {
         'W'         || 3
     }
 
-    def "given the pencil has an eraser and a word has been written, when instructed to erase the word, then it leaves whitespace in its place"() {
+    def "given the pencil has an eraser and text has been written, when instructed to erase the text, then it leaves whitespace in its place"() {
         given:
         subject = new Pencil(LOWERCASE_WORD.length(), 1, new Eraser(LOWERCASE_WORD.length()))
         subject.write(LOWERCASE_WORD, paper)
@@ -189,7 +189,7 @@ class PencilSpec extends Specification {
         paper.text == '    '
     }
 
-    def "given a pencil has no erase and a word has been written, when instructed to erase the word, then the text is not altered"() {
+    def "given a pencil has no eraser and text has been written, when instructed to erase the text, then the text is not altered"() {
         given:
         subject = new Pencil(LOWERCASE_WORD.length())
         subject.write(LOWERCASE_WORD, paper)

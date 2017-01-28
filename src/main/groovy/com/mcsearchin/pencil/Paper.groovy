@@ -2,25 +2,31 @@ package com.mcsearchin.pencil;
 
 class Paper {
 
-    private static final char SPACE = ' '
+    static final char SPACE = ' '
 
-    private String text = ""
+    private StringBuilder text = new StringBuilder()
 
     def String getText() {
-        text
+        text.toString()
     }
 
     def String setText(String text) {}
 
     def write(char character) {
-        text += character
+        text.append(character)
+    }
+
+    def write(char character, int index) {
+        setCharacterAt(index, character)
     }
 
     def erase(int index) {
+        setCharacterAt(index, SPACE)
+    }
+
+    private setCharacterAt(int index, char character) {
         if (index >= 0 && index < text.length()) {
-            def erasable = new StringBuilder(text)
-            erasable.setCharAt(index, SPACE)
-            text = erasable.toString()
+            text.setCharAt(index, character)
         }
     }
 }
