@@ -9,15 +9,20 @@ class Eraser {
     }
 
     def erase(String text, Paper paper) {
-        if (!isWornOut()) {
-            def start = paper.text.lastIndexOf(text)
-            if (start >= 0) {
-                def end = start + text.length()
-                (start..<end).each {
-                    paper.erase(it)
+        def start = paper.text.lastIndexOf(text)
+        if (start >= 0) {
+            def end = start + text.length() - 1
+            (end..start).each {
+                if (!isWornOut()) {
+                    eraseAndDegrade(paper, it)
                 }
             }
         }
+    }
+
+    private eraseAndDegrade(Paper paper, int atIndex) {
+        paper.erase(atIndex)
+        durability--
     }
 
     private isWornOut() {

@@ -73,6 +73,18 @@ class EraserSpec extends Specification {
         paper.text == WORD
     }
 
+    public "given the eraser durability is less than needed to erase a word, it cannot erase the entire word"() {
+        given:
+        subject = new Eraser(WORD.length() - 1)
+        write(WORD, paper)
+
+        when:
+        subject.erase(WORD, paper)
+
+        then:
+        paper.text == 'y '
+    }
+
     private write(String text, Paper paper) {
         text.each {
             paper.write((char) it)
