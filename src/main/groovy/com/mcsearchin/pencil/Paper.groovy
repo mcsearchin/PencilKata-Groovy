@@ -2,6 +2,8 @@ package com.mcsearchin.pencil;
 
 class Paper {
 
+    private static final char SPACE = ' '
+
     private String text = ""
 
     def String getText() {
@@ -17,7 +19,7 @@ class Paper {
     def erase(int index) {
         if (index >= 0 && index < text.length()) {
             def erasable = new StringBuilder(text)
-            erasable.setCharAt(index, (char) ' ')
+            erasable.setCharAt(index, SPACE)
             text = erasable.toString()
         }
     }

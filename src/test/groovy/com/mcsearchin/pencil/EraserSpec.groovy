@@ -85,6 +85,18 @@ class EraserSpec extends Specification {
         paper.text == 'y '
     }
 
+    public "given the eraser durability is enough to only erase the non-white space characters, then it can erase the specified text"() {
+        given:
+        subject = new Eraser(WORD.length() * 2)
+        write("$WORD $WORD \t\n$WORD", paper)
+
+        when:
+        subject.erase("$WORD \t\n$WORD", paper)
+
+        then:
+        paper.text == "$WORD        "
+    }
+
     private write(String text, Paper paper) {
         text.each {
             paper.write((char) it)

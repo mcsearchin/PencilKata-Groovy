@@ -20,9 +20,11 @@ class Eraser {
         }
     }
 
-    private eraseAndDegrade(Paper paper, int atIndex) {
-        paper.erase(atIndex)
-        durability--
+    private eraseAndDegrade(Paper paper, int index) {
+        if (!paper.text.charAt(index).isWhitespace()) {
+            durability--
+        }
+        paper.erase(index)
     }
 
     private isWornOut() {
