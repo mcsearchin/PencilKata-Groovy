@@ -43,4 +43,35 @@ class PaperSpec extends Specification {
         expect:
         subject.text == ""
     }
+
+    def "given text has been written, when a given index is erased, it is replaced with whitespace"() {
+        given:
+        subject.write(CHARACTER)
+        subject.write(CHARACTER)
+
+        when:
+        subject.erase(0)
+
+        then:
+        subject.text == " $CHARACTER"
+    }
+
+    def "given text has been written, when an out of range index is erased, the string is not altered"() {
+        given:
+        subject.write(CHARACTER)
+
+        when:
+        subject.erase(1)
+
+        then:
+        subject.text == "$CHARACTER"
+    }
+
+    def "when a negative index is erased, the string is not altered"() {
+        when:
+        subject.erase(-1)
+
+        then:
+        subject.text == ""
+    }
 }

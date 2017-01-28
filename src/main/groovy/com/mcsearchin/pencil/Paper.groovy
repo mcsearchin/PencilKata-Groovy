@@ -10,7 +10,15 @@ class Paper {
 
     def String setText(String text) {}
 
-    def write(char text) {
-        this.text += text
+    def write(char character) {
+        text += character
+    }
+
+    def erase(int index) {
+        if (index >= 0 && index < text.length()) {
+            def erasable = new StringBuilder(text)
+            erasable.setCharAt(index, (char) ' ')
+            text = erasable.toString()
+        }
     }
 }
