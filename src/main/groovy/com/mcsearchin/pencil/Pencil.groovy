@@ -1,5 +1,7 @@
 package com.mcsearchin.pencil
 
+import java.time.chrono.Era
+
 class Pencil {
 
     private static final int STANDARD_LETTER_DEGRADATION = 1
@@ -9,16 +11,24 @@ class Pencil {
     private final int initialPointDurability
     private int remainingPointDurability
     private int length
+    private Eraser eraser
 
-    Pencil(int pointDurability, int length = 0) {
+    Pencil(int pointDurability, int length = 0, Eraser eraser = null) {
         this.initialPointDurability = pointDurability
         this.remainingPointDurability = pointDurability
         this.length = length
+        this.eraser = eraser
     }
 
-    def String write(String text, Paper paper) {
+    def write(String text, Paper paper) {
         text.toCharArray().each {
             paper.write(convertAndDegradePoint(it))
+        }
+    }
+
+    def erase(String text, Paper paper) {
+        if (eraser != null) {
+            eraser.erase(text, paper)
         }
     }
 

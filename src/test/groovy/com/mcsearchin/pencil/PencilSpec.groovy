@@ -176,4 +176,28 @@ class PencilSpec extends Specification {
         'M'         || 3
         'W'         || 3
     }
+
+    def "given the pencil has an eraser and a word has been written, when instructed to erase the word, then it leaves whitespace in its place"() {
+        given:
+        subject = new Pencil(LOWERCASE_WORD.length(), 1, new Eraser(LOWERCASE_WORD.length()))
+        subject.write(LOWERCASE_WORD, paper)
+
+        when:
+        subject.erase(LOWERCASE_WORD, paper)
+
+        then:
+        paper.text == '    '
+    }
+
+    def "given a pencil has no erase and a word has been written, when instructed to erase the word, then the text is not altered"() {
+        given:
+        subject = new Pencil(LOWERCASE_WORD.length())
+        subject.write(LOWERCASE_WORD, paper)
+
+        when:
+        subject.erase(LOWERCASE_WORD, paper)
+
+        then:
+        paper.text == LOWERCASE_WORD
+    }
 }
