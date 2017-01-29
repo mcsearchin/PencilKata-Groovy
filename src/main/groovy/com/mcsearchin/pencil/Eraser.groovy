@@ -1,8 +1,6 @@
 package com.mcsearchin.pencil
 
-class Eraser {
-
-    private int durability
+class Eraser extends Degradable {
 
     Eraser(int durability) {
         this.durability = durability
@@ -22,12 +20,8 @@ class Eraser {
 
     private eraseAndDegrade(Paper paper, int index) {
         if (!paper.text.charAt(index).isWhitespace()) {
-            durability--
+            degrade()
         }
         paper.erase(index)
-    }
-
-    private isWornOut() {
-        return durability < 1
     }
 }
